@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 require('dotenv').config()
 
-
-const Feature = require('./models/features');
+const featuresRoutes = require('./routes/features');
 
 const app = express();
 
@@ -20,9 +20,6 @@ mongoose
 .catch(() => {
   console.log('Connection failed!');
 });
-
-// const cors = require('cors');
-// app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,51 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/v1/features', (req, res, next) => {
-  const feature = new Feature({
-    title: req.body.title,
-  });
-  feature.save().then(createdFeature => {
-    res.status(201).json({
-      message: 'Feature added successfully',
-      featureId: createdFeature._id
-    });
-  });
-});
-
-app.put('/api/v1/features/:id', (req, res, next) => {
-  const feature = new Feature({
-    title: req.body.title,
-  });
-  Feature.updateOne({ _id: req.params.id }, feature).then(result => {
-    res.status(200).json({ message: 'Update successful!' });
-  });
-});
-
-app.get('/api/v1/features', (req, res, next) => {
-  Feature.find().then(documents => {
-    res.status(200).json({
-      message: 'Features fetched successfully!',
-      features: documents
-    });
-  });
-});
-
-app.get('/api/v1/features/:id', (req, res, next) => {
-  Feature.findById(req.params.id).then(feature => {
-    if (feature) {
-      res.status(200).json(feature);
-    } else {
-      res.status(404).json({ message: 'Feature not found!' });
-    }
-  });
-});
-
-app.delete('/api/v1/features/:id', (req, res, next) => {
-  Feature.deleteOne({ _id: req.params.id }).then(result => {
-    res.status(200).json({ message: 'Feature deleted!' });
-  });
-});
+app.use('/api/v1/features', featuresRoutes);
 
 
 module.exports = app;
