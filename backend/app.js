@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 const featuresRoutes = require('./routes/features');
-
+const userRoutes = require('./routes/user');
 const app = express();
 
 mongoose
-.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qxztm.mongodb.net/Features?retryWrites=true&w=majority`,
+.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qxztm.mongodb.net/Features`,
 {
   useUnifiedTopology: true,
   useNewUrlParser: true,
@@ -38,6 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/v1/features', featuresRoutes);
+app.use('/api/v1/user', userRoutes);
 
 
 module.exports = app;
