@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,7 +7,6 @@ import { ModulesModule } from './modules/modules.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
-// import { AngularMaterialModule } from './material.module';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
     ModulesModule,
     SharedModule,
     AppRoutingModule,
-    // AngularMaterialModule
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
