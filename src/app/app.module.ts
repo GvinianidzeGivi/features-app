@@ -27,16 +27,11 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
-    HttpClientModule,
     CoreModule,
     ModulesModule,
     SharedModule,
-    AppRoutingModule,
     AuthModule,
-    AngularMaterialModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

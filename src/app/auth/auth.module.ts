@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
@@ -19,7 +20,8 @@ import { CommonModule } from '@angular/common';
     AuthRoutingModule
     ],
     providers: [
-      AuthService
+      AuthService,
+
     ]
 })
 export class AuthModule { }

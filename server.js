@@ -1,11 +1,14 @@
-const app = require('./backend/app');
+//Install express server
+const express = require('express');
+const path = require('path');
 
-const http = require('http');
-const debug = require('debug')('http');
+const app = express();
 
-const port = process.env.PORT || 3000;
-app.set('port', port)
-const server = http.createServer(app);
+app.use(express.static('./dist/features-app'));
 
+app.get('/*', function(req,res) {
 
-server.listen(port);
+res.sendFile(path.join(__dirname,'/dist/features-app/index.html'));
+});
+
+app.listen(process.env.PORT || 8080);

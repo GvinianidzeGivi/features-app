@@ -16,7 +16,7 @@ export class SignupComponent {
 
   ngOnInit() {
     this.authStatusSub = this.authService
-      .getAuthStatus()
+      .getAuthStatusListener()
       .subscribe(authStatus => {
         this.isLoading = false;
       });
