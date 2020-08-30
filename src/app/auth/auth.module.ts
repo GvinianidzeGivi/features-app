@@ -1,3 +1,4 @@
+import { AuthRoutingModule } from './auth-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     AngularMaterialModule,
     FormsModule,
+    AuthRoutingModule
     ],
     providers: [
       AuthService

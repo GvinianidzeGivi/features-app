@@ -9,12 +9,33 @@ import { Subscription } from 'rxjs';
 
 export class SignupComponent {
 
+  isLoading = false;
+  private authStatusSub: Subscription;
+
   constructor(public authService: AuthService) {}
 
-  onSignup(signupForm: NgForm) {
-    if (signupForm.invalid) {
+  ngOnInit() {
+    this.authStatusSub = this.authService
+      .getAuthStatus()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
+  }
+
+  onSignup(form: NgForm) {
+    if (form.invalid) {
       return;
     }
-    this.authService.createUser(signupForm.value.email, signupForm.value.password)
+    this.isLoading = true;
+    this.authService.createUser(
+      form.value.email,
+      form.value.password,
+      form.value.firstname,
+      form.value.lastname
+    );
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }
