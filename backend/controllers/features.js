@@ -1,10 +1,10 @@
 const Feature = require('../models/feature');
 
 exports.createFeature = (req, res, next) => {
-  const url = req.protocol + '://' + req.get('host');
   const feature = new Feature({
     title: req.body.title,
   });
+  console.log(feature);
   feature
     .save()
     .then(createdFeature => {

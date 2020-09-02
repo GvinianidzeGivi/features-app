@@ -46,7 +46,7 @@ export class AuthService {
       firstname: firstname,
       lastname: lastname
     };
-    this.http.post(API_URL + '/signup', authData).subscribe(
+    this.http.post(API_URL + 'signup', authData).subscribe(
       response => {
         this.router.navigate(['/']);
       },
@@ -64,11 +64,12 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
-        API_URL + '/login',
+        API_URL + 'login',
         authData
       )
       .subscribe(
         response => {
+
           const token = response.token;
           this.token = token;
           if (token) {
@@ -82,7 +83,6 @@ export class AuthService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate, this.userId);
-            console.log(expirationDate);
             this.router.navigate(['/']);
           }
         },
@@ -119,7 +119,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('setting timer: ', duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

@@ -1,0 +1,28 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!-- <mat-accordion multi="true" *ngIf="features.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let feature of features">
+    <mat-expansion-panel-header>
+      <a [routerLink]="['/', feature.id]">{{ feature.title }}</a>
+    </mat-expansion-panel-header>
+    <mat-action-row *ngIf="userIsAuthenticated">
+      <button mat-button color="primary" [routerLink]="['/edit', feature.id]">EDIT</button>
+      <button mat-button color="warn" (click)="onDelete(feature.id)">DELETE</button>
+    </mat-action-row>
+    <h1>{{feature.title}}</h1>
+
+  </mat-expansion-panel>
+</mat-accordion> -->
+
+
+<!--
+<mat-card *ngFor="let feature of features">
+
+</mat-card> -->
+<div *ngIf="features.length > 0 && !isLoading" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let feature of features" cdkDrag>
+    {{feature?.title}}
+  </div>
+</div>
+
+
+<p class="info-text mat-body-1" *ngIf="features.length < 0 && !isLoading">No features added yet!</p>

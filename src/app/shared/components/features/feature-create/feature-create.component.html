@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveFeature()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="title" placeholder="Feature Title">
+      <mat-error *ngIf="form.get('title').invalid">Please enter a feature title</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Save Feature</button>
+  </form>
+</mat-card>
