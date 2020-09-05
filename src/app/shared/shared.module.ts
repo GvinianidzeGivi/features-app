@@ -1,4 +1,4 @@
-import { DragndropService } from './services/dragndrop.service';
+import { HeaderCreateComponent } from './components/header/header-create/header-create.component';
 import { FeaturesService } from './components/features/features.service';
 // import { FeatureListComponent } from './components/features/feature-list/feature-list.component';
 import { AngularMaterialModule } from './../material.module';
@@ -13,7 +13,7 @@ import { FeatureListComponent } from './components/features/feature-list/feature
 
 
 @NgModule({
-  declarations: [FeatureCreateComponent, FeatureListComponent],
+  declarations: [FeatureCreateComponent, FeatureListComponent, HeaderCreateComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -24,7 +24,6 @@ import { FeatureListComponent } from './components/features/feature-list/feature
   exports: [],
   providers: [
     FeaturesService,
-    DragndropService
   ]
 
 })

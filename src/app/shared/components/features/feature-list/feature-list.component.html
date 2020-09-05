@@ -18,11 +18,15 @@
 <mat-card *ngFor="let feature of features">
 
 </mat-card> -->
+<!-- <a mat-mini-fab color="accent" (click)="openDialog()">+</a> -->
+
+<a routerLink="/create/feature"   mat-mini-fab color="accent">+</a>
 <div *ngIf="features.length > 0 && !isLoading" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
   <div class="example-box" *ngFor="let feature of features" cdkDrag>
-    {{feature?.title}}
+      {{feature?.title}}
   </div>
 </div>
 
 
-<p class="info-text mat-body-1" *ngIf="features.length < 0 && !isLoading">No features added yet!</p>
+<p class="info-text mat-body-1" *ngIf="features.length == 0 && !isLoading">No features added yet!</p>
+

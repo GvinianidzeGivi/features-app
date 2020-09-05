@@ -1,10 +1,11 @@
+import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import { DragndropService } from './../../../services/dragndrop.service';
 import { Feature } from './../feature.model';
 import { FeaturesService } from '../features.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { FeatureCreateComponent } from '../feature-create/feature-create.component';
 
 @Component({
   selector: 'app-feature-list',
@@ -19,15 +20,17 @@ export class FeatureListComponent implements OnInit {
   private featuresSub: Subscription;
   private authListenerSub: Subscription;
   subscription: Subscription;
+    // subject = new BehaviorSubject();
 
-  constructor(public featuresService: FeaturesService, private authService: AuthService, public dragndropService: DragndropService) {
-
-  }
-
+  constructor(
+    public featuresService: FeaturesService,
+    private authService: AuthService,
+    public dialog: MatDialog
+    ) {}
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.features , event.previousIndex, event.currentIndex);
-    this.dragndropService.features = JSON.stringify(this.features);
+    localStorage.setItem('features', JSON.stringify(this.features));
   }
 
   ngOnInit() {
@@ -35,12 +38,15 @@ export class FeatureListComponent implements OnInit {
     this.featuresService.getFeatures();
     this.featuresSub = this.featuresService.getFeatureUpdateListener()
     .subscribe((featureData: {features: Feature[]}) => {
-        this.features = JSON.parse(this.dragndropService.features)
-        const difference = Object.entries(featureData.features).reduce((c, [k, v]) => Object.assign(c, this.features[k] ? {} : { [k]: v }), {});
-          for(let obj in difference) {
-             this.features.push(difference[obj])
-          }
+       if (localStorage.getItem('features') !== null) {
+        this.features = JSON.parse(localStorage.getItem('features'));
+        this.features.push(featureData.features[featureData.features.length - 1])
+        this.features.pop();
+       } else {
+        this.features = featureData.features;
+      }
      })
+
      this.isLoading = false;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSub = this.authService

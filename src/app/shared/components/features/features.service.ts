@@ -57,14 +57,14 @@ export class FeaturesService {
     this.http
       .post<{ message: string; feature: Feature }>(BACKEND_URL, featureData)
       .subscribe(responseData => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/features']);
       });
   }
 
   updateFeature(id: string, title: string) {
     const featureData: Feature = { id: id, title: title};
     this.http.put(BACKEND_URL + id, featureData).subscribe(response => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/features']);
     });
   }
 

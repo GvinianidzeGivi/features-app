@@ -22,8 +22,28 @@ export class FeatureCreateComponent implements OnInit {
   constructor(
     public featuresService: FeaturesService,
     public route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
+
+
+
+  onSaveFeature() {
+    if (this.form.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    if (this.mode === 'create') {
+      this.featuresService.addFeature(
+        this.form.value.title,
+      );
+    } else {
+      this.featuresService.updateFeature(
+        this.featureId,
+        this.form.value.title,
+      );
+    }
+    this.form.reset();
+  }
 
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
@@ -59,26 +79,9 @@ export class FeatureCreateComponent implements OnInit {
     });
   }
 
-  onSaveFeature() {
-
-    if (this.form.invalid) {
-      return;
-    }
-    this.isLoading = true;
-    if (this.mode === 'create') {
-      this.featuresService.addFeature(
-        this.form.value.title,
-      );
-    } else {
-      this.featuresService.updateFeature(
-        this.featureId,
-        this.form.value.title,
-      );
-    }
-    this.form.reset();
-  }
-
-  ngOnDestroy() {
+   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
 }
+
+export class DialogContentExampleDialog {}

@@ -21,7 +21,7 @@ exports.createUser = (req, res, next) => {
       })
       .catch(err => {
         res.status(500).json({
-          message: 'Invalid authentication credentials!'
+          message: 'Mail is already registered!'
         });
       });
   });
@@ -42,7 +42,7 @@ exports.userLogin = (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: 'Auth failed'
+          message: 'Incorrect Password or Email'
         });
       }
       const token = jwt.sign(

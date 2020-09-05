@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const featuresRoutes = require('./routes/features');
 const userRoutes = require('./routes/user');
+const menuRoutes = require('./routes/menu');
+
 const app = express();
 
 require('dotenv').config()
@@ -37,6 +39,7 @@ next();
 });
 
 app.use('/api/v1/features', featuresRoutes);
+app.use('/api/v1/menu', menuRoutes);
 app.use('/api/v1/user', userRoutes);
 
 module.exports = app;
