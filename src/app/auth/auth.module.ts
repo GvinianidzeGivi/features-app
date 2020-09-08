@@ -1,28 +1,22 @@
-import { AuthGuard } from './auth.guard';
-import { AuthRoutingModule } from './auth-routing.module';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
-import { AngularMaterialModule } from './../material.module';
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+
+import { LoginComponent } from './login/login.component'
+import { SignupComponent } from './signup/signup.component'
+import { AngularMaterialModule } from "../angular-material.module";
+import { AuthRoutingModule } from "./auth-routing.module";
 
 @NgModule({
   declarations: [
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     FormsModule,
     AuthRoutingModule
-    ],
-    providers: [
-      AuthService,
-
-    ]
+  ]
 })
 export class AuthModule { }
-

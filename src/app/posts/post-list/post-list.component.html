@@ -1,0 +1,35 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<button *ngIf="posts.length > 0" class="m-auto" mat-raised-button color="primary" (click)="togglePosts()">{{   isShown ? 'hide' : 'show' }}</button>
+<ng-container *ngIf="posts.length>0 && !isLoading && isShown">
+<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" checkDate  class="post-container">
+  <ng-container *ngFor="let post of posts">
+  <mat-card  *ngIf="post.showDate == currentDate" class="post" multi=true cdkDrag>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{post.title}}</mat-card-title>
+  </mat-card-header>
+  <div class="post__thumbnail">
+  <img class="post__img" mat-card-image [src]="post.imagePath" [alt]="post.title">
+  </div>
+  <mat-card-content>
+    <p>
+      {{post.content}}
+    </p>
+    <p>
+      {{post?.showDate}}
+    </p>
+    <p>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a [routerLink]="['/edit', post.id]" mat-button color="primary">EDIT</a>
+    <button mat-button (click)="onDelete(post.id)">DELETE</button>
+  </mat-card-actions>
+</mat-card>
+</ng-container>
+</div>
+</ng-container>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="posts.length>0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet.</p>
+`

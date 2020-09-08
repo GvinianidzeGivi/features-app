@@ -1,0 +1,11 @@
+.post-container {
+  display: flex;
+  flex-wrap: wrap;
+.post {
+  width: calc(50% - 32px);
+  &__thumbnail {
+    height: 300px;
+    overflow: hidden;
+    }
+  }
+}

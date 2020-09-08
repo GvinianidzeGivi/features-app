@@ -45,5 +45,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# environments
+#nodemon.js
+/backend/nodemon.json
+
+#config.js
+/backend/config.js
+
 .env

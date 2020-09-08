@@ -1,43 +1,42 @@
-import { HeaderListComponent } from './shared/components/header/header-list/header-list.component';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { AngularMaterialModule } from './material.module';
-import { AuthInterceptor } from './auth/auth-incerceptor';
-import { AuthModule } from './auth/auth.module';
-import { AppRoutingModule } from './app-routing.module';
-import { CommonModule } from '@angular/common';
-import { ModulesModule } from './modules/modules.module';
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppComponent } from './app.component';
-
+import { AppRoutingModule } from "./app-routing.module";
+import { HeaderComponent } from './header/header.component'
+import { AuthInterceptor } from "./auth/auth-interceptor";
+import { ErrorInterceptor } from "./error-interceptor";
+import { ErrorComponent } from "./error/error.component";
+import { AngularMaterialModule } from "./angular-material.module";
+import { PostsModule } from "./posts/posts.module";
+import { NotFoundComponent } from './not-found/not-found.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderListComponent
+    HeaderComponent,
+    ErrorComponent,
+    NotFoundComponent
   ],
-
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     AngularMaterialModule,
-    CommonModule,
-    CoreModule,
-    ModulesModule,
-    SharedModule,
-    AuthModule,
+    PostsModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }
